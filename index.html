@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>DEXPACK // Offensive IoT & Low-Level</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+  /* Reset léger */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+    color: #e5e7eb;
+  }
+
+  .dxp-root {
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .dxp-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  .dxp-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .dxp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(94,234,212,0.4);
+    background: linear-gradient(90deg, rgba(15,23,42,0.8), rgba(8,47,73,0.9));
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #a5f3fc;
+    margin-bottom: 1rem;
+  }
+
+  .dxp-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+  }
+
+  .dxp-title {
+    position: relative;
+    display: inline-block;
+    font-size: clamp(2.5rem, 4vw, 3.3rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #f9fafb;
+    text-shadow: 0 0 20px rgba(56,189,248,0.4);
+    margin-bottom: 0.4rem;
+  }
+
+  .dxp-title::before,
+  .dxp-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    mix-blend-mode: screen;
+  }
+
+  .dxp-title::before {
+    color: #22d3ee;
+    transform: translate(-2px, -1px);
+    animation: dxp-glitch-1 2.2s infinite;
+  }
+
+  .dxp-title::after {
+    color: #f97316;
+    transform: translate(2px, 1px);
+    animation: dxp-glitch-2 3s infinite;
+  }
+
+  @keyframes dxp-glitch-1 {
+    0%, 100% { transform: translate(-2px,-1px); }
+    10% { transform: translate(-1px,1px); }
+    20% { transform: translate(-3px,0px); }
+    30% { transform: translate(0px,-1px); }
+    40% { transform: translate(-2px,1px); }
+  }
+
+  @keyframes dxp-glitch-2 {
+    0%, 100% { transform: translate(2px,1px); }
+    15% { transform: translate(1px,-2px); }
+    25% { transform: translate(3px,0px); }
+    35% { transform: translate(0px,2px); }
+    45% { transform: translate(2px,-1px); }
+  }
+
+  .dxp-sub {
+    font-size: 0.95rem;
+    color: #9ca3af;
+    min-height: 1.4em;
+  }
+
+  .dxp-sub span {
+    color: #e5e7eb;
+  }
+
+  .dxp-divider {
+    margin: 2.2rem auto 2.8rem;
+    width: 180px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #22d3ee, #a855f7, transparent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dxp-divider::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, #f97316, transparent);
+    transform: translateX(-100%);
+    animation: dxp-scan 2.4s linear infinite;
+  }
+
+  @keyframes dxp-scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .dxp-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .dxp-card {
+    position: relative;
+    border-radius: 1.2rem;
+    padding: 1.2rem 1.3rem;
+    background: radial-gradient(circle at top left, rgba(56,189,248,0.08), transparent 60%);
+    border: 1px solid rgba(148,163,184,0.22);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 18px 40px rgba(15,23,42,0.8);
+    overflow: hidden;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .dxp-card::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    opacity: 0;
+    background: conic-gradient(from 180deg, rgba(56,189,248,0.05), rgba(244,114,182,0.08), rgba(129,140,248,0.05));
+    transition: opacity 0.25s ease;
+    z-index: -1;
+  }
+
+  .dxp-card:hover {
+    transform: translateY(-6px) translateZ(0);
+    border-color: rgba(94,234,212,0.6);
+    box-shadow: 0 24px 60px rgba(15,23,42,0.95);
+  }
+
+  .dxp-card:hover::before {
+    opacity: 1;
+  }
+
+  .dxp-card-title {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #a5b4fc;
+    margin-bottom: 0.6rem;
+  }
+
+  .dxp-card-main {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #e5e7eb;
+  }
+
+  .dxp-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0.4rem 0 0.7rem;
+  }
+
+  .dxp-chip {
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,0.6);
+    padding: 0.15rem 0.55rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #cbd5f5;
+  }
+
+  .dxp-card-text {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    line-height: 1.5;
+  }
+
+  .dxp-progress {
+    margin-top: 0.6rem;
+  }
+
+  .dxp-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #e5e7eb;
+    margin-bottom: 0.25rem;
+  }
+
+  .dxp-progress-bar {
+    width: 100%;
+    height: 4px;
+    border-radius: 999px;
+    background: #020617;
+    overflow: hidden;
+  }
+
+  .dxp-progress-bar span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #22c55e, #a3e635, #eab308);
+    transform-origin: left;
+    transform: scaleX(0.78);
+    animation: dxp-fill 2s forwards;
+  }
+
+  @keyframes dxp-fill {
+    to { transform: scaleX(1); }
+  }
+
+  .dxp-section-title {
+    margin: 3rem 0 1rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #9ca3af;
+  }
+
+  .dxp-modules {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .dxp-module {
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(75,85,99,0.8);
+    background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.8));
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .dxp-module:hover {
+    border-color: rgba(56,189,248,0.9);
+    transform: translateY(-3px);
+  }
+
+  .dxp-module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.3rem;
+  }
+
+  .dxp-module-name {
+    font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.95rem;
+    color: #e5e7eb;
+  }
+
+  .dxp-module-tag {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #38bdf8;
+  }
+
+  .dxp-module-body {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-bottom: 0.4rem;
+  }
+
+  .dxp-module-meta {
+    font-size: 0.7rem;
+    color: #6b7280;
+  }
+
+  .dxp-footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  .dxp-footer span {
+    color: #e5e7eb;
+  }
+
+  @media (max-width: 640px) {
+    .dxp-root {
+      padding: 1.75rem 1.1rem 3rem;
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <div class="dxp-root">
+    <div class="dxp-container">
+      <header class="dxp-hero">
+        <div class="dxp-badge">
+          <span class="dxp-dot"></span>
+          <span>Offensive IoT • Low-Level • Physical Security</span>
+        </div>
+
+        <h1 class="dxp-title" data-text="DEXPACK">DEXPACK</h1>
+
+        <p class="dxp-sub">
+          <span id="dxp-typing"></span>
+        </p>
+      </header>
+
+      <div class="dxp-divider"></div>
+
+      <section class="dxp-grid">
+        <article class="dxp-card">
+          <div class="dxp-card-title">Profil</div>
+          <div class="dxp-card-main">Devynn — Offensive Low-Level</div>
+          <p class="dxp-card-text">
+            Orientation claire : <strong>sécurité offensive IoT / systèmes embarqués</strong>.
+            Focalisé sur le C, la mémoire, les sockets, les protocoles et le comportement réel des machines,
+            pas sur les scripts magiques.
+          </p>
+          <div class="dxp-chip-row">
+            <span class="dxp-chip">C bas niveau</span>
+            <span class="dxp-chip">IoT</span>
+            <span class="dxp-chip">Réseaux</span>
+            <span class="dxp-chip">Sécurité physique</span>
+          </div>
+        </article>
+
+        <article class="dxp-card">
+          <div class="dxp-card-title">Stack & terrain</div>
+          <div class="dxp-card-main">Parrot, raw sockets & lab perso</div>
+          <p class="dxp-card-text">
+            Environnement Linux orienté offensive (Parrot), <strong>sniffers maison</strong>,
+            MITM, tests sur réseau réel, objectif : relier le code au monde physique
+            (Wi-Fi, routeurs, objets connectés, caméras…).
+          </p>
+          <div class="dxp-chip-row">
+            <span class="dxp-chip">Parrot OS</span>
+            <span class="dxp-chip">AF_PACKET</span>
+            <span class="dxp-chip">MITM</span>
+            <span class="dxp-chip">TryHackMe later</span>
+          </div>
+        </article>
+
+        <article class="dxp-card">
+          <div class="dxp-card-title">Vision</div>
+          <div class="dxp-card-main">Offensive IoT & hardware</div>
+          <p class="dxp-card-text">
+            Aller jusqu’au firmware, aux bus (UART / JTAG / SWD), à l’ASM ARM,
+            à l’exploitation mémoire et aux outils maison pour pentest IoT.
+            DEXPACK devient une <strong>suite offensive low-level</strong> utilisable en red team.
+          </p>
+          <div class="dxp-chip-row">
+            <span class="dxp-chip">Firmware</span>
+            <span class="dxp-chip">ARM</span>
+            <span class="dxp-chip">Exploit Dev</span>
+            <span class="dxp-chip">Outils C/C++</span>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <h2 class="dxp-section-title">Suite DEXPACK — modules</h2>
+
+        <div class="dxp-modules">
+          <article class="dxp-module">
+            <div class="dxp-module-header">
+              <div class="dxp-module-name">DXP-SnifferV2</div>
+              <div class="dxp-module-tag">traffic intel</div>
+            </div>
+            <p class="dxp-module-body">
+              Sniffer réseau en C basé sur <code>AF_PACKET</code>.
+              Capture les paquets bruts sur l’interface (Wi-Fi / Ethernet),
+              avec analyse par protocole (IP / TCP / UDP, etc.).
+              Conçu pour être utilisé après un MITM sur réseau réel.
+            </p>
+            <div class="dxp-module-meta">
+              Brut, sans dépendances, pensé pour apprendre comment les paquets circulent vraiment.
+            </div>
+          </article>
+
+          <article class="dxp-module">
+            <div class="dxp-module-header">
+              <div class="dxp-module-name">DXP-MITM (ARP Spoof)</div>
+              <div class="dxp-module-tag">network access</div>
+            </div>
+            <p class="dxp-module-body">
+              Module d’empoisonnement ARP : détournement du trafic entre victime et passerelle.
+              Sert de pivot pour observer, logguer et exploiter le trafic clair
+              (HTTP, DNS, credentials non chiffrés, etc.).
+            </p>
+            <div class="dxp-module-meta">
+              Étape clé pour lier le code bas niveau à des attaques réseau concrètes.
+            </div>
+          </article>
+
+          <article class="dxp-module">
+            <div class="dxp-module-header">
+              <div class="dxp-module-name">DXP-Scan</div>
+              <div class="dxp-module-tag">recon</div>
+            </div>
+            <p class="dxp-module-body">
+              Scanner de ports minimaliste en C : TCP 0–1024 avec timeouts personnalisés.
+              Suffisant pour mapper rapidement une cible, sans la lourdeur d’outils externes.
+            </p>
+            <div class="dxp-module-meta">
+              Travail sur la gestion des sockets, des erreurs et des temps de réponse.
+            </div>
+          </article>
+
+          <article class="dxp-module">
+            <div class="dxp-module-header">
+              <div class="dxp-module-name">DXP-Backdoor (PoC)</div>
+              <div class="dxp-module-tag">access</div>
+            </div>
+            <p class="dxp-module-body">
+              Implant réseau très simple : reverse shell en C pour comprendre
+              le principe d’un accès persistant, des connexions sortantes
+              et du contrôle distant.
+            </p>
+            <div class="dxp-module-meta">
+              Base pédagogique pour du développement d’implants plus avancés.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="dxp-footer">
+        <p>
+          <span>Devynn</span> — Offensive IoT & Low-Level Security •
+          GitHub : <a href="https://github.com/DEXX001" target="_blank" rel="noopener noreferrer">DEXX001</a>
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+  const typingEl = document.getElementById("dxp-typing");
+  const typingPhrases = [
+    "C pur. Pas de magie. Juste le bas niveau.",
+    "Offensive IoT, réseaux réels, sécurité physique.",
+    "Sniffers, MITM, outils maison, terrain d'abord.",
+    "Objectif : profil rare en offensive IoT / embarqué."
+  ];
+
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+
+  function typeLoop() {
+    const current = typingPhrases[phraseIndex];
+
+    if (!deleting) {
+      typingEl.textContent = current.slice(0, ++charIndex);
+      if (charIndex === current.length) {
+        deleting = true;
+        setTimeout(typeLoop, 1400);
+        return;
+      }
+    } else {
+      typingEl.textContent = current.slice(0, --charIndex);
+      if (charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % typingPhrases.length;
+      }
+    }
+
+    const delay = deleting ? 35 : 55;
+    setTimeout(typeLoop, delay);
+  }
+
+  typeLoop();
+  </script>
+</body>
+</html>
