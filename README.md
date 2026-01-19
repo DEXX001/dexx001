@@ -52,7 +52,7 @@
 
 <br/>
 
-Je consacre mon énergie à maîtriser le **Langage C**, le père de tous les systèmes.
+Je consacre mon énergie à maîtriser le **Langage C**, le père de tous les systèmes et plein d'autre chose encore !.
 
 **Projet Actuel : Raw Socket Sniffer**
 Je ne voulais pas utiliser Wireshark, je voulais *comprendre* Wireshark. J'ai codé un sniffer qui bypass la stack réseau standard pour lire les paquets bruts (Ethernet/IP/TCP) via l'arithmétique de pointeurs.
