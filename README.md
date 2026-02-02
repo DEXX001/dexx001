@@ -1,4 +1,4 @@
-# <p align="center"> <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=35&pause=1000&color=A020F0&center=true&vCenter=true&width=435&lines=I'm+DEXX;Welcome+to+my+World;exploring+Cybersecurity" alt="Typing SVG" /> </p>
+# <p align="center"> <img src="https://readme-typing-svg.herokuapp.com?font=DotGothic16&size=30&duration=1500&pause=500&color=A020F0&center=true&vCenter=true&width=600&lines=INITIALIZING+SYSTEM...;ENCRYPTING+DATA...;EXPLORING+CYBERSECURITY;DEXX+CONNECTED" /> </p>
 
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=18&pause=500&color=9370DB&center=true&vCenter=true&width=435&lines=📡+Status:+Deep+Learning...;📡+Status:+Curious+Explorer;📡+Status:+Scanning+New+Tech" alt="Status Typing" />
