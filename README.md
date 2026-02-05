@@ -32,12 +32,11 @@ I'm **DEXX**, a tech enthusiast currently pursuing a **BTS SIO (SISR)** degree. 
 ---
 
 ### 📊 Activity & Stats
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=dexx001&show_icons=true&theme=tokyonight&border_color=A020F0&icon_color=A020F0&title_color=A020F0" alt="DEXX Stats" />
-</p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=dexx001&theme=tokyonight&ring=A020F0&fire=A020F0" alt="Streak Stats" />
+<img src="https://github-readme-stats.vercel.app/api?username=dexx001&show_icons=true&theme=tokyonight&border_color=A020F0&icon_color=A020F0&title_color=A020F0" alt="DEXX Stats" />
+<br/>
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=dexx001&theme=tokyonight&ring=A020F0&fire=A020F0" alt="Streak Stats" />
 </p>
 
 ---
